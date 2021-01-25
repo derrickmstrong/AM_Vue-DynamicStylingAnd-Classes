@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue - Dynamic Styling and Classes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Dynamic Styling</h1>
+    </header>
+    <section id="styling">
+      <!-- Option 1: Binding the style ans adding in inline styles (Not recommended) -->
+      <div class="demo" :style="{borderColor: boxA ? 'red' : '#ccc', backgroundColor: boxA ? 'salmon' : 'white'}" @click="selectBox('A')"></div>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vue - Dynamic Styling and Classes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://unpkg.com/vue@next" defer>
+      <!-- Option 2: Binding the class and using ternary expression inline (Better but still not optimal) -->
+      <div :class="boxB ? 'demo active' : 'demo'" @click="selectBox('B')"></div>
 
-  </script>
-  <script src="app.js" defer>
+      <!-- Option 3: Binding the class and using an object to determine whether the class should be activiated or not (Best solution) -->
+      <!-- Below class code reads demo is always applied because its not dynamic and active is true if/when boxC is true and ONLY WHEN we click on this div (thanks to the @click handler below) therefore the div gets both the demo and active classes applied -->
+      <!-- ie. If the class is true then apply it; demo is always applied because it is not dynamically bound and active is set to true if the @click event handler is triggered by clicking on the div in order to use the selectBox(box) method -->
+      <div class="demo" :class="{active: boxC}" @click="selectBox('C')"></div>
 
-  </script>
-</head>
-
-<body>
-  <header>
-    <h1>Vue Dynamic Styling</h1>
-  </header>
-  <section id="styling">
-    <!-- Option 1: Binding the style ans adding in inline styles (Not recommended) -->
-    <div class="demo" :style="{borderColor: boxA ? 'red' : '#ccc', backgroundColor: boxA ? 'salmon' : 'white'}" @click="selectBox('A')"></div>
-    <!-- Option 2: Binding the class and using ternary expression inline (Better but still not optimal) -->
-    <div :class="boxB ? 'demo active' : 'demo'" @click="selectBox('B')"></div>
-    <!-- Option 3: Binding the class and using an object to determine whether the class should be activiated or not (Best solution) -->
-    <!-- Below class code reads demo is always applied because its not dynamic and active is true if/when boxC is true and ONLY WHEN we click on this div (thanks to the @click handler below) therefore the div gets both the demo and active classes applied -->
-    <!-- ie. If the class is true then apply it; demo is always applied because it is not dynamically bound and active is set to true if the @click event handler is triggered by clicking on the div in order to use the selectBox(box) method -->
-    <div class="demo" :class="{active: boxC}" @click="selectBox('C')"></div>
-  </section>
-</body>
-
+      <!-- Option 4: Binding via Computed property, this removes the logic out of the call attribute (Cleaner option) -->
+      <div class="demo" :class="boxDClasses" @click="selectBox('D')"></div>
+    </section>
+  </body>
 </html>
